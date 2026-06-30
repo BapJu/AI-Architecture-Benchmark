@@ -61,6 +61,7 @@ python run_benchmark.py
 
 ## Key Insight
 
+```
 ================================================================================
   BENCHMARK RESULTS — Per Query
 ================================================================================
@@ -92,14 +93,15 @@ python run_benchmark.py
 │ Avg Fact Score (%)  │                84.2  │                82.2  │ -2.0%   │
 │ Avg Tool Calls      │                 0    │                 1.4  │ +1.4    │
 ╰─────────────────────┴──────────────────────┴──────────────────────┴─────────╯
+```
 
 Full results saved to: results\benchmark_20260630_195244.csv
 
 
-Why did tokens drop by 74%?
+## Why did tokens drop by 74%?
 Approach A (Naive) forces the LLM to read the entire database of LinkedIn profiles for every single question, resulting in ~8,800 input tokens per call. Approach B (Agentic RAG) uses a vector database (Chroma) to filter the data before the LLM reads it. By only passing the 1 or 2 relevant profiles to the LLM instead of all 25, we cut input token consumption by roughly 74% (saving ~6,600 total tokens per query) while maintaining nearly identical accuracy and relevance scores.
 
-The Trade-off (The Latency Tax)
+## The Trade-off (The Latency Tax)
 Make sure to also point out the Latency column. While Approach B saves a ton of money on tokens, it takes about 3.3 seconds longer on average.
 
 This is the classic RAG trade-off:
